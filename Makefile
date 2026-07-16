@@ -1,4 +1,4 @@
-.PHONY: build test run lint dev seed
+.PHONY: build test run lint dev seed docker-build docker-run
 
 build:
 	go build -o bin/server ./cmd/server
@@ -18,3 +18,9 @@ lint:
 
 seed:
 	curl -s -X POST http://localhost:8080/api/schema/seed | jq .
+
+docker-build:
+	docker build -t queryengine:latest .
+
+docker-run:
+	docker compose up
