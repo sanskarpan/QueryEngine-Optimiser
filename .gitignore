@@ -1,0 +1,24 @@
+# Binaries
+bin/
+*.exe
+
+# Go build cache
+*.test
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Node / Web
+web/node_modules/
+web/dist/
+
+# Secrets
+.env
+*.local
+
+# Claude settings
+.claude/
