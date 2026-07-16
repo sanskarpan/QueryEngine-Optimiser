@@ -41,6 +41,7 @@ func (op *HashJoin) Open(ctx *exectypes.ExecContext) error {
 		return err
 	}
 	if err := op.Right.Open(ctx); err != nil {
+		op.Left.Close()
 		return err
 	}
 
@@ -49,6 +50,7 @@ func (op *HashJoin) Open(ctx *exectypes.ExecContext) error {
 	for {
 		tuple, err := op.Right.Next()
 		if err != nil {
+			op.Left.Close()
 			return err
 		}
 		if tuple == nil {
