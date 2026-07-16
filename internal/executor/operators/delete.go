@@ -55,6 +55,7 @@ func (op *DeleteOp) Next() (*exectypes.Tuple, error) {
 	where := op.Where
 	ctx := op.ctx
 
+	var whereErr error
 	count := ht.DeleteWhere(func(row storage.Tuple) bool {
 		if where == nil {
 			return true // DELETE without WHERE removes all rows
@@ -62,10 +63,14 @@ func (op *DeleteOp) Next() (*exectypes.Tuple, error) {
 		tuple := &exectypes.Tuple{Values: row.Values, Schema: tblSchema}
 		val, err := EvalExpr(where, tuple, ctx)
 		if err != nil {
+			whereErr = err
 			return false
 		}
 		return IsTruthy(val)
 	})
+	if whereErr != nil {
+		return nil, fmt.Errorf("DELETE WHERE: %w", whereErr)
+	}
 
 	return &exectypes.Tuple{
 		Values: []catalog.Value{catalog.IntValue(count)},
