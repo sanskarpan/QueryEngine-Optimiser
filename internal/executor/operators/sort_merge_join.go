@@ -54,6 +54,7 @@ func (op *SortMergeJoin) Open(ctx *exectypes.ExecContext) error {
 		return err
 	}
 	if err := op.Right.Open(ctx); err != nil {
+		op.Left.Close()
 		return err
 	}
 
@@ -61,6 +62,8 @@ func (op *SortMergeJoin) Open(ctx *exectypes.ExecContext) error {
 	for {
 		t, err := op.Left.Next()
 		if err != nil {
+			op.Left.Close()
+			op.Right.Close()
 			return err
 		}
 		if t == nil {
@@ -73,6 +76,7 @@ func (op *SortMergeJoin) Open(ctx *exectypes.ExecContext) error {
 	for {
 		t, err := op.Right.Next()
 		if err != nil {
+			op.Right.Close()
 			return err
 		}
 		if t == nil {
