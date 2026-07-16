@@ -30,13 +30,13 @@ func (op *WindowOp) Open(ctx *exectypes.ExecContext) error {
 	if err := op.Child.Open(ctx); err != nil {
 		return err
 	}
+	defer op.Child.Close()
 	// Materialise child rows; close child on any error since executor.go
 	// does not call Close() when Open() returns an error.
 	var childRows []exectypes.Tuple
 	for {
 		t, err := op.Child.Next()
 		if err != nil {
-			op.Child.Close()
 			return fmt.Errorf("window child next: %w", err)
 		}
 		if t == nil {
@@ -71,7 +71,6 @@ func (op *WindowOp) Open(ctx *exectypes.ExecContext) error {
 	// Compute each window function
 	for winIdx, w := range op.Windows {
 		if err := op.computeWindow(ctx, winIdx, len(childSchema), w, childRows); err != nil {
-			op.Child.Close()
 			return err
 		}
 	}
