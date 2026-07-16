@@ -1,3 +1,6 @@
+// Package parser implements a recursive-descent SQL parser that converts a token stream
+// produced by the lexer into AST nodes. It supports SELECT, INSERT, UPDATE, DELETE,
+// CREATE/DROP/ALTER TABLE, EXPLAIN, CTEs, subqueries, and window functions.
 package parser
 
 import "fmt"

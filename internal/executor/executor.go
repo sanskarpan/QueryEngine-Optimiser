@@ -1,3 +1,6 @@
+// Package executor runs physical query plans using the Volcano/iterator model.
+// It converts physical plan nodes into executable operators, drives the Open/Next/Close
+// lifecycle, and collects execution statistics such as rows scanned and rows produced.
 package executor
 
 import (

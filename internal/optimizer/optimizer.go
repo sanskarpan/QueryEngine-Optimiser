@@ -1,3 +1,6 @@
+// Package optimizer applies rule-based and cost-based transformations to logical query
+// plans. Rules include constant folding, predicate pushdown, and projection pushdown.
+// Cost-based optimization selects join algorithms and orderings using table statistics.
 package optimizer
 
 import (

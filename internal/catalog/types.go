@@ -1,3 +1,6 @@
+// Package catalog defines the in-memory schema catalog: table definitions, column
+// metadata, SQL data types, and typed value operations (arithmetic, comparison).
+// All engine components read schema information from the catalog.
 package catalog
 
 import (

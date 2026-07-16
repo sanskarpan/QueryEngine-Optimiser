@@ -1,3 +1,5 @@
+// Package lexer implements the SQL lexer (tokenizer) for the query engine.
+// It converts a raw SQL string into a stream of typed tokens consumed by the parser.
 package lexer
 
 // TokenType identifies the type of a lexical token.

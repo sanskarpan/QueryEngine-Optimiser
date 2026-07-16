@@ -1,3 +1,6 @@
+// Package storage provides an in-memory relational storage engine.
+// Each table is a heap of typed tuples protected by a read-write mutex,
+// supporting concurrent reads and serialized writes.
 package storage
 
 import (

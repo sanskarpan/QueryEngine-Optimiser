@@ -1,3 +1,5 @@
+// Package ast defines the abstract syntax tree (AST) node types produced by the parser.
+// Every SQL statement, expression, and clause is represented as an AST node.
 package ast
 
 import "github.com/query-engine/query-engine/internal/lexer"

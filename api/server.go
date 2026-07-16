@@ -1,3 +1,6 @@
+// Package api implements the HTTP API for the query engine.
+// It exposes endpoints for query execution, EXPLAIN, schema inspection,
+// statistics, table creation, and data seeding.
 package api
 
 import (
