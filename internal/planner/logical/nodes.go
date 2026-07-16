@@ -1,3 +1,6 @@
+// Package logical defines the logical query plan nodes and the builder that converts
+// analyzed AST nodes into a logical plan tree. Logical plans are optimizer-agnostic
+// representations of query intent before physical execution decisions are made.
 package logical
 
 import (

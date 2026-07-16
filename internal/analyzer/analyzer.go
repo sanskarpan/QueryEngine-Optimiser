@@ -1,3 +1,6 @@
+// Package analyzer performs semantic analysis on AST nodes produced by the parser.
+// It resolves column references, validates table and column names against the catalog,
+// checks type compatibility, and rejects unsupported SQL constructs before planning.
 package analyzer
 
 import (

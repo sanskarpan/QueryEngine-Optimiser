@@ -1,3 +1,7 @@
+// Package rule provides the optimizer rule interface and all built-in optimization rules.
+// Rules transform logical plan trees: constant folding eliminates dead branches,
+// predicate pushdown moves filters closer to scans, and projection pushdown
+// reduces column width early in the pipeline.
 package rule
 
 import "github.com/query-engine/query-engine/internal/planner/logical"

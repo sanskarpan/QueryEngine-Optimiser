@@ -1,3 +1,6 @@
+// Package operators provides all Volcano-model iterator operators for the query engine.
+// Each operator implements the Operator interface (Open/Next/Close/Schema) and can
+// be composed into a tree to execute any SQL query plan.
 package operators
 
 import (
