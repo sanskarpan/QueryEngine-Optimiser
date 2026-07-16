@@ -11,10 +11,8 @@ import (
 	"github.com/query-engine/query-engine/internal/storage"
 )
 
-// -----------------------------------------------------------------------
-// ExplainOp — formats the inner plan tree as text rows.
-// -----------------------------------------------------------------------
-
+// ExplainOp formats the inner physical plan as human-readable text rows.
+// When Analyze is true it also executes the plan and appends actual row counts.
 type ExplainOp struct {
 	Inner   Operator
 	Analyze bool
@@ -74,10 +72,8 @@ func (op *ExplainOp) Next() (*exectypes.Tuple, error) {
 
 func (op *ExplainOp) Close() error { return nil }
 
-// -----------------------------------------------------------------------
-// CreateTableOp — creates a table in the catalog and storage.
-// -----------------------------------------------------------------------
-
+// CreateTableOp creates a table in the catalog and storage.
+// If SelectSrc is non-nil, it also populates the new table via CREATE TABLE … AS SELECT.
 type CreateTableOp struct {
 	TableName string
 	Columns   []*ast.ColumnDef
@@ -179,10 +175,8 @@ func (op *CreateTableOp) Close() error {
 	return nil
 }
 
-// -----------------------------------------------------------------------
-// DropTableOp — drops a table from the catalog and storage.
-// -----------------------------------------------------------------------
-
+// DropTableOp drops a table from the catalog and storage.
+// When IfExists is true it succeeds silently even if the table does not exist.
 type DropTableOp struct {
 	TableName string
 	IfExists  bool
@@ -219,10 +213,8 @@ func (op *DropTableOp) Next() (*exectypes.Tuple, error) {
 
 func (op *DropTableOp) Close() error { return nil }
 
-// -----------------------------------------------------------------------
-// AlterTableOp — alters a table schema.
-// -----------------------------------------------------------------------
-
+// AlterTableOp modifies a table's schema: ADD COLUMN, DROP COLUMN, RENAME TABLE,
+// or RENAME COLUMN. It updates both the catalog schema and the heap row values.
 type AlterTableOp struct {
 	TableName  string
 	Action     string

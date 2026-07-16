@@ -88,10 +88,7 @@ func (op *SetOpOp) Next() (*exectypes.Tuple, error) {
 	return &row, nil
 }
 
-// -----------------------------------------------------------------------
-// DedupeOp — streaming deduplication for SELECT DISTINCT.
-// -----------------------------------------------------------------------
-
+// DedupeOp implements SELECT DISTINCT by hashing each output row and discarding duplicates.
 type DedupeOp struct {
 	Child  Operator
 	seen   map[string]struct{}
